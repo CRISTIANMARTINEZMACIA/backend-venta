@@ -1,5 +1,7 @@
 package com.cristianmartinez.api.backendventa.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -44,5 +46,5 @@ public class Client {
     private Business business;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-    private Sale[] sales;
+    private List<Sale> sales;
 }

@@ -5,18 +5,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
+
+import com.cristianmartinez.api.utils.EstadoVenta;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class SaleRequest {
-    private Long id;
-    private Long clientId;
-    private Long pointSaleId;
-    private Double total;
-    private LocalDateTime saleDate;
-    private List<SaleDetailRequest> details;
+    private Long client;
+    private Long pointSale;
+    private Long business;
+    private Long user;
+    private BigDecimal total;
+    private String typePayment;
+    private EstadoVenta status;
+    private LocalDateTime dateSale;
 }

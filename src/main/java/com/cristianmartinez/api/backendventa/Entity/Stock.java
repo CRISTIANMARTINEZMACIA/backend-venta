@@ -1,6 +1,7 @@
 package com.cristianmartinez.api.backendventa.Entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,8 +41,8 @@ public class Stock {
     private String unitMeasure;
 
     @Column(name = "stock_minimo", precision = 10, scale = 3)
-    private BigDecimal stockMinimo;
+    private BigDecimal stockMin;
 
     @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY)
-    private InventoryMovement[] movements;
+    private List<InventoryMovement> movements;
 }

@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 public class RecipeResponse {
     private Long id;
-    private Long productId;
-    private List<Long> ingredientIds;
-    private String instructions;
+    private ProductResponse product;
+    private IngredientResponse ingredient;
+    private BigDecimal amountNeed;
 }

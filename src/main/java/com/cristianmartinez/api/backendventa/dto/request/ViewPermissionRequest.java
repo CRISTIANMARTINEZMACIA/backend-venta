@@ -10,7 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ViewPermissionRequest {
-    private Long id;
-    private Long viewId;
-    private Long permissionId;
+    private Long view;
+    private Long permission;
+    private Boolean read;
+    private Boolean write;
+    private Boolean update;
+    private Boolean delete;
+    private Boolean print;
+    private Boolean lead;
 }

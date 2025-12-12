@@ -5,15 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class RecipeRequest {
-    private Long id;
-    private Long productId;
-    private List<Long> ingredientIds;
-    private String instructions;
+    private Long product;
+    private Long ingredient;
+    private BigDecimal amountNeed;
 }

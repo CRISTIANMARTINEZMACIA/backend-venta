@@ -1,5 +1,7 @@
 package com.cristianmartinez.api.backendventa.dto.request;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class StockRequest {
-    private Long id;
-    private Long productId;
-    private Integer quantity;
-    private String location;
+    private Long product;
+    private BigDecimal amountCurrent;
+    private String unitMeasure;
+    private BigDecimal stockMin;
 }

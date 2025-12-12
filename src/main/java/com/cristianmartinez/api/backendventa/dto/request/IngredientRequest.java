@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class IngredientRequest {
-    private Long id;
     private String name;
-    private String unit;
-    private Double quantity;
+    private Long category;
+    private String unitMeasure;
 }

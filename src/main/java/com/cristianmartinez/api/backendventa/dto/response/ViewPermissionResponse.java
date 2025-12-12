@@ -11,6 +11,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ViewPermissionResponse {
     private Long id;
-    private Long viewId;
-    private Long permissionId;
+    private ViewResponse view;
+    private PermissionResponse permission;
+    private Boolean read;
+    private Boolean write;
+    private Boolean update;
+    private Boolean delete;
+    private Boolean print;
+    private Boolean lead;
 }

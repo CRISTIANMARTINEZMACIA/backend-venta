@@ -10,11 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ClientRequest {
-    private Long id;
-    private String firstName;
+    private String name;
     private String lastName;
-    private String documentNumber;
-    private String email;
     private String phone;
-    private String address;
+    private String email;
+    private Long business;
 }

@@ -13,5 +13,5 @@ public class IngredientResponse {
     private Long id;
     private String name;
     private String unit;
-    private Double quantity;
+     private CategoryResponse category;
 }

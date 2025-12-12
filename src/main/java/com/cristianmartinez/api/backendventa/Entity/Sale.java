@@ -2,8 +2,11 @@ package com.cristianmartinez.api.backendventa.Entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.cristianmartinez.api.utils.EstadoVenta;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,10 +28,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-enum EstadoVenta {
-    PENDIENTE, COMPLETADA, CANCELADA
-}
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @EqualsAndHashCode(of = "id")
@@ -70,5 +69,5 @@ public class Sale {
     private EstadoVenta status;
 
     @OneToMany(mappedBy = "sale", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private SaleDetail[] details;
+    private List<SaleDetail> details;
 }

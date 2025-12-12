@@ -2,26 +2,8 @@ package com.cristianmartinez.api.backendventa.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
-/**
- * Todas las entidades JPA mapeadas desde el SQL provisto.
- *
- * Notas:
- * - Estrategia IDENTITY para compatibilidad con "GENERATED ALWAYS AS IDENTITY" (PostgreSQL).
- * - Relaciones y restricciones únicas replicadas con anotaciones JPA.
- * - Se usan BigDecimal para valores monetarios y de cantidad.
- * - @CreationTimestamp para fechas por defecto CURRENT_TIMESTAMP.
- */
-
-// =======================
-// 1. GESTIÓN DE USUARIOS
-// =======================
+import java.util.List;
 
 @Getter 
 @Setter 
@@ -44,9 +26,9 @@ public class Rol {
     private String description;
 
     @OneToMany(mappedBy = "rol", fetch = FetchType.LAZY)
-    private User[] users;
+    private List<User> users;
 
     @OneToMany(mappedBy = "rol", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
-    private RolPermission[] rolPermissions;
+    private List<RolPermission> rolPermissions;
 }
 

@@ -1,5 +1,7 @@
 package com.cristianmartinez.api.backendventa.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,13 +40,14 @@ public class ViewPermission {
     @JoinColumn(name = "id_permiso", nullable = false)
     private Permission permission;
 
-    @Column(name = "leer") private Boolean leer;
-    @Column(name = "escribir") private Boolean escribir;
-    @Column(name = "actualizar") private Boolean actualizar;
-    @Column(name = "eliminar") private Boolean eliminar;
-    @Column(name = "imprimir") private Boolean imprimir;
-    @Column(name = "lider") private Boolean lider;
+    @Column(name = "leer") private Boolean read;
+    @Column(name = "escribir") private Boolean write;
+    @Column(name = "actualizar") private Boolean update;
+    @Column(name = "eliminar") private Boolean delete;
+    @Column(name = "imprimir") private Boolean print;
+    @Column(name = "lider") private Boolean lead;
 
     @OneToMany(mappedBy = "viewPermission", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private RolPermission[] rolPermissions;
+    private List<RolPermission> rolPermissions;
 }
+

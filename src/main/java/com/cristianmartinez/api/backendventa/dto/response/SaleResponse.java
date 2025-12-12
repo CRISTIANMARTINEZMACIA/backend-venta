@@ -5,8 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -14,9 +14,12 @@ import java.util.List;
 @Builder
 public class SaleResponse {
     private Long id;
-    private Long clientId;
-    private Long pointSaleId;
-    private Double total;
-    private LocalDateTime saleDate;
-    private List<SaleDetailResponse> details;
+    private BusinessResponse business;
+    private PointSaleResponse pointSale;
+    private UserResponse user;
+    private ClientResponse client;
+    private LocalDateTime dateSale;
+    private BigDecimal total;
+    private String typePayment;
+    private String status;
 }

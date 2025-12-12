@@ -1,6 +1,7 @@
 package com.cristianmartinez.api.backendventa.Entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,6 +44,7 @@ public class User {
     @Column(name = "apellido", length = 100)
     private String lastName;
 
+
     @Column(name = "email", length = 100, nullable = false)
     private String email;
 
@@ -61,8 +63,8 @@ public class User {
     private LocalDateTime createAt;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Sale[] sales;
+    private List<Sale> sales;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private InventoryMovement[] inventoryMovements;
+    private List<InventoryMovement> inventoryMovements;
 }

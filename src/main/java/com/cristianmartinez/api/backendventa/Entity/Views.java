@@ -1,7 +1,8 @@
 package com.cristianmartinez.api.backendventa.Entity;
 
 
-import jakarta.annotation.Nonnull;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -51,5 +52,5 @@ public class Views {
     private Boolean active;
 
     @OneToMany(mappedBy = "views", fetch = FetchType.LAZY)
-    private ViewPermission[] viewPermissions;
+    private List<ViewPermission> viewPermissions;
 }

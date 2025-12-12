@@ -1,12 +1,13 @@
 package com.cristianmartinez.api.backendventa.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -41,5 +42,5 @@ public class Permission {
     private String description;
 
     @OneToMany(mappedBy = "permission", fetch = FetchType.LAZY)
-    private ViewPermission[] viewPermission;
+    private List<ViewPermission> viewPermission;
 }

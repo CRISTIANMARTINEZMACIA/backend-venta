@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class RolPermissionRequest {
-    private Long id;
-    private Long rolId;
-    private Long permissionId;
+    private Long rol;
+    private Long viewPermission;
 }

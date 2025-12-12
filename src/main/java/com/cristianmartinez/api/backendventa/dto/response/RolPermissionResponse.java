@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RolPermissionResponse {
     private Long id;
-    private Long rolId;
-    private Long permissionId;
+    private RolResponse rol;
+    private ViewPermissionResponse viewPermission;
 }

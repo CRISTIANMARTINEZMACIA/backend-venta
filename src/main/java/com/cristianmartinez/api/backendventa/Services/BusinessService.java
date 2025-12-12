@@ -28,7 +28,7 @@ public class BusinessService {
          .count(business.getTotalElements())
          .page(business.getTotalPages())
          .content(business.stream()
-                .map(this::mapToResponse)
+                .map(this::mapToResponseBusiness)
                 .collect(Collectors.toList()))
          .build();
 
@@ -36,11 +36,11 @@ public class BusinessService {
     }
 
     public BusinessResponse findById(Long id) {
-        return mapToResponse(repository.findById(id).get());
+        return mapToResponseBusiness(repository.findById(id).get());
     }
 
     public BusinessResponse save(BusinessRequest businessRequest) {
-        return mapToResponse(repository.save(mapToEntity(businessRequest)));
+        return mapToResponseBusiness(repository.save(mapToEntity(businessRequest)));
     }
 
     public BusinessResponse update(BusinessRequest businessRequest, Long id) {
@@ -54,7 +54,7 @@ public class BusinessService {
         entity.setRucNit(businessRequest.getRucNit());
 
         Business saved = repository.save(entity);
-        return mapToResponse(saved);
+        return mapToResponseBusiness(saved);
     
     }
 
@@ -74,7 +74,7 @@ public class BusinessService {
 
     
 
-    private BusinessResponse mapToResponse(Business business) {
+    public BusinessResponse mapToResponseBusiness(Business business) {
         return BusinessResponse.builder()
                 .id(business.getId())
                 .name(business.getName())

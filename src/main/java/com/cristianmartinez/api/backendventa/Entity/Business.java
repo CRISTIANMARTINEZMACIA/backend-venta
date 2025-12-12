@@ -1,5 +1,6 @@
 package com.cristianmartinez.api.backendventa.Entity;
 
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,18 +19,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter 
-@Setter 
-@NoArgsConstructor 
-@AllArgsConstructor 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = {"salePoints", "users", "categories", "products", "clients", "sales"})
-@Entity 
-@Table(name = "negocio",
-        uniqueConstraints = {@UniqueConstraint(name = "uk_negocio_ruc_nit", columnNames = {"ruc_nit"})})
+@ToString(exclude = { "salePoints", "users", "categories", "products", "clients", "sales" })
+@Entity
+@Table(name = "negocio", uniqueConstraints = {
+        @UniqueConstraint(name = "uk_negocio_ruc_nit", columnNames = { "ruc_nit" }) })
 public class Business {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_negocio")
     private Long id;
 
@@ -49,20 +51,20 @@ public class Business {
     private String rucNit;
 
     @OneToMany(mappedBy = "business", fetch = FetchType.LAZY)
-    private PointSale[] salePoints;
+    private List<PointSale> salePoints;
 
     @OneToMany(mappedBy = "business", fetch = FetchType.LAZY)
-    private User[] users;
+    private List<User> users;
 
     @OneToMany(mappedBy = "business", fetch = FetchType.LAZY)
-    private Category[] categories;
+    private List<Category> categories;
 
     @OneToMany(mappedBy = "business", fetch = FetchType.LAZY)
-    private Product[] products;
+    private List<Product> products;
 
     @OneToMany(mappedBy = "business", fetch = FetchType.LAZY)
-    private Client[] clients;
+    private List<Client> clients;
 
     @OneToMany(mappedBy = "business", fetch = FetchType.LAZY)
-    private Sale[] sales;
+    private List<Sale> sales;
 }

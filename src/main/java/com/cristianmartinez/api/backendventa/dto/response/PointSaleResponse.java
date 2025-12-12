@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class PointSaleResponse {
     private Long id;
     private String name;
-    private String location;
+    private BusinessResponse business;
+    private Boolean active;
 }

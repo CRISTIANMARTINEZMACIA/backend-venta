@@ -1,11 +1,17 @@
 package com.cristianmartinez.api.backendventa.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
-import com.cristianmartinez.api.backendventa.Entity.Sale;
+
 import com.cristianmartinez.api.backendventa.Services.SaleService;
+import com.cristianmartinez.api.backendventa.dto.request.SaleRequest;
+import com.cristianmartinez.api.backendventa.dto.response.DefaultResponse;
+import com.cristianmartinez.api.backendventa.dto.response.PaginationResponse;
+import com.cristianmartinez.api.backendventa.dto.response.SaleResponse;
 
 import java.util.List;
 
@@ -15,36 +21,68 @@ public class SaleController {
     @Autowired
     private SaleService service;
 
-    @GetMapping
-    public List<Sale> getAll() {
-        return service.findAll();
+   @GetMapping
+    public DefaultResponse<PaginationResponse<List<SaleResponse>>> getAll(@RequestParam(defaultValue = "0") int page,
+    @RequestParam(defaultValue = "10") int size) {
+        try {
+            Pageable pageable = PageRequest.of(page, size,Sort.by("id").descending());
+            PaginationResponse<List<SaleResponse>> businesses = service.findAll(pageable);
+        return DefaultResponse.<PaginationResponse<List<SaleResponse>>>builder()
+                .code(200).status(false).message("Ventas obtenidas").body(businesses).build();
+        } catch (Exception e) {
+           return DefaultResponse.<PaginationResponse<List<SaleResponse>>>builder()
+                .code(e.hashCode()).status(true).message(e.getMessage()).body(null).build();
+        }
+        
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Sale> getById(@PathVariable Long id) {
-        return service.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public DefaultResponse<SaleResponse> getById(@PathVariable Long id) {
+
+        try {
+            return DefaultResponse.<SaleResponse>builder()
+                .code(200).status(false).message("Venta encontrada").body(service.findById(id)).build();
+        } catch (Exception e) {
+            return DefaultResponse.<SaleResponse>builder()
+                .code(e.hashCode()).status(true).message(e.getMessage()).body(null).build();
+        }
+        
     }
 
     @PostMapping
-    public Sale create(@RequestBody Sale entity) {
-        return service.save(entity);
+    public DefaultResponse<SaleResponse> create(@RequestBody SaleRequest saleRequest) {
+        try {
+             return DefaultResponse.<SaleResponse>builder()
+                .code(200).status(false).message("Venta creada exitosamente").body(service.save(saleRequest)).build();
+        } catch (Exception e) {
+            return DefaultResponse.<SaleResponse>builder()
+                .code(e.hashCode()).status(true).message(e.getMessage()).body(null).build();
+        }
+       
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Sale> update(@PathVariable Long id, @RequestBody Sale entity) {
-        return service.findById(id)
-                .map(existing -> {
-                    entity.setId(id);
-                    return ResponseEntity.ok(service.save(entity));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public DefaultResponse<SaleResponse> update(@PathVariable Long id, @RequestBody SaleRequest saleRequest) {
+        try {
+            return DefaultResponse.<SaleResponse>builder()
+                .code(200).status(false).message("Venta actualizada").body(service.update(saleRequest, id)).build();
+        } catch (Exception e) {
+           return DefaultResponse.<SaleResponse>builder()
+                .code(e.hashCode()).status(true).message(e.getMessage()).body(null).build();
+        }
+        
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        service.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public DefaultResponse<Void> delete(@PathVariable Long id) {
+        try {
+            service.deleteById(id);
+        return DefaultResponse.<Void>builder()
+                .code(200).status(false).message("Venta eliminada").body(null).build();
+        } catch (Exception e) {
+           return DefaultResponse.<Void>builder()
+                .code(e.hashCode()).status(true).message(e.getMessage()).body(null).build();
+        }
+        
     }
 }

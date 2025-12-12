@@ -1,5 +1,6 @@
 package com.cristianmartinez.api.backendventa.Entity;
 
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,13 +20,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = {"products", "ingredients"})
-@Entity 
+@ToString(exclude = { "products", "ingredients" })
+@Entity
 @Table(name = "categoria")
 public class Category {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoria")
     private Long id;
 
@@ -37,8 +43,8 @@ public class Category {
     private Business business; // puede ser null según SQL
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private Product[] products;
+    private List<Product> products;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private Ingredient[] ingredients;
+    private List<Ingredient> ingredients;
 }

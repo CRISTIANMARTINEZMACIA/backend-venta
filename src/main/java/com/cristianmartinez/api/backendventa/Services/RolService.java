@@ -27,17 +27,17 @@ public class RolService {
          .count(roles.getTotalElements())
          .page(roles.getTotalPages())
          .content(roles.stream()
-                .map(this::mapToResponse)
+                .map(this::mapToResponseRole)
                 .collect(Collectors.toList()))
          .build();
     }
 
     public RolResponse findById(Long id) {
-         return mapToResponse(repository.findById(id).get());
+         return mapToResponseRole(repository.findById(id).get());
     }
 
     public RolResponse save(RolRequest rolRequest) {
-        return mapToResponse(repository.save(mapToEntity(rolRequest)));
+        return mapToResponseRole(repository.save(mapToEntity(rolRequest)));
     }
 
     public RolResponse update(RolRequest rolRequest, Long id) {
@@ -48,7 +48,7 @@ public class RolService {
         entity.setDescription(rolRequest.getDescription());
 
         Rol saved = repository.save(entity);
-        return mapToResponse(saved);
+        return mapToResponseRole(saved);
     
     }
 
@@ -63,7 +63,7 @@ public class RolService {
                 .build();
     }
 
-    private RolResponse mapToResponse(Rol rol) {
+    public RolResponse mapToResponseRole(Rol rol) {
         return RolResponse.builder()
                 .id(rol.getId())
                 .name(rol.getName())

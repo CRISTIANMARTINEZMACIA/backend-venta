@@ -1,5 +1,7 @@
 package com.cristianmartinez.api.backendventa.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -43,5 +45,5 @@ public class PointSale {
     private Boolean active;
 
     @OneToMany(mappedBy = "pointSale", fetch = FetchType.LAZY)
-    private Sale[] sales;
+    private List<Sale> sales;
 }

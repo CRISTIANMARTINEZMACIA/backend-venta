@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CategoryRequest {
-    private Long id;
     private String name;
-    private String description;
+    private Long business;
 }

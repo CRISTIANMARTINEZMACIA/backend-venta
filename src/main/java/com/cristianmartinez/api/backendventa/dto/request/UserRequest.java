@@ -13,6 +13,7 @@ public class UserRequest {
     private String name;
     private String lastName;
     private String email;
-     private String passwordHash;
-     private String rolId;
+    private String passwordHash;
+    private Long rol;
+    private Long business;
 }

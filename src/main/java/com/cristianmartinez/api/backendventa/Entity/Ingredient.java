@@ -1,5 +1,7 @@
 package com.cristianmartinez.api.backendventa.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,5 +40,5 @@ public class Ingredient {
     private String unitMeasure;
 
     @OneToMany(mappedBy = "ingredient", fetch = FetchType.LAZY)
-    private Recipe[] recipes;
+    private List<Recipe> recipes;
 }

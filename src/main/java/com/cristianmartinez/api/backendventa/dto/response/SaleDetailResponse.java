@@ -1,5 +1,7 @@
 package com.cristianmartinez.api.backendventa.dto.response;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +13,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SaleDetailResponse {
     private Long id;
-    private Long saleId;
-    private Long productId;
-    private Integer quantity;
-    private Double price;
+    private SaleResponse sale;
+    private ProductResponse product;
+    private BigDecimal amount;
+    private BigDecimal priceUnitary;
+    private BigDecimal subtotal;
 }
