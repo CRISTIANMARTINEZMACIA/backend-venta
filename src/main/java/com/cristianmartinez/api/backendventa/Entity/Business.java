@@ -25,7 +25,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = { "salePoints", "users", "categories", "products", "clients", "sales" })
+@ToString(exclude = { "salePoints", "users", "categories", "clients"})
 @Entity
 @Table(name = "negocio", uniqueConstraints = {
         @UniqueConstraint(name = "uk_negocio_ruc_nit", columnNames = { "ruc_nit" }) })
