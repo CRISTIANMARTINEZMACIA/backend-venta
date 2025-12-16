@@ -13,6 +13,7 @@ public class ViewPermissionResponse {
     private Long id;
     private ViewResponse view;
     private PermissionResponse permission;
+    private String name;
     private Boolean read;
     private Boolean write;
     private Boolean update;

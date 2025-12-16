@@ -88,6 +88,7 @@ public class ViewPermissionService {
                 .print(viewPermission.getPrint())
                 .read(viewPermission.getRead())
                 .write(viewPermission.getWrite())
+                .name(viewPermission.getViews().getName() + '-' + viewPermission.getPermission().getName())
                 .build();
     }
 
