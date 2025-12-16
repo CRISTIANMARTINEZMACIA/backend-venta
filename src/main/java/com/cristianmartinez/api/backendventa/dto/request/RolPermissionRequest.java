@@ -12,4 +12,10 @@ import lombok.NoArgsConstructor;
 public class RolPermissionRequest {
     private Long rol;
     private Long viewPermission;
+    private Boolean read;
+    private Boolean write;
+    private Boolean update;
+    private Boolean delete;
+    private Boolean print;
+    private Boolean lead;
 }

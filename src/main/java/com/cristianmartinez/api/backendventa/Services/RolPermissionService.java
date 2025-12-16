@@ -46,16 +46,22 @@ public class RolPermissionService {
         return mapToResponse(repository.save(mapToEntity(rolPermissionRequest)));
     }
 
-     public RolPermissionResponse update(RolPermissionRequest rolPermissionRequest, Long id) {
-           
+    public RolPermissionResponse update(RolPermissionRequest rolPermissionRequest, Long id) {
+
         RolPermission entity = repository.findById(id).get();
 
         entity.setRol(Rol.builder().id(rolPermissionRequest.getRol()).build());
         entity.setViewPermission(ViewPermission.builder().id(rolPermissionRequest.getViewPermission()).build());
+        entity.setUpdate(rolPermissionRequest.getUpdate());
+        entity.setDelete(rolPermissionRequest.getDelete());
+        entity.setLead(rolPermissionRequest.getLead());
+        entity.setPrint(rolPermissionRequest.getPrint());
+        entity.setRead(rolPermissionRequest.getRead());
+        entity.setWrite(rolPermissionRequest.getWrite());
 
         RolPermission saved = repository.save(entity);
         return mapToResponse(saved);
-    
+
     }
 
     public void deleteById(Long id) {
@@ -66,6 +72,12 @@ public class RolPermissionService {
         return RolPermission.builder()
                 .rol(Rol.builder().id(rolPermissionRequest.getRol()).build())
                 .viewPermission(ViewPermission.builder().id(rolPermissionRequest.getViewPermission()).build())
+                .update(rolPermissionRequest.getUpdate())
+                .delete(rolPermissionRequest.getDelete())
+                .lead(rolPermissionRequest.getLead())
+                .print(rolPermissionRequest.getPrint())
+                .read(rolPermissionRequest.getRead())
+                .write(rolPermissionRequest.getWrite())
                 .build();
     }
 
@@ -74,6 +86,12 @@ public class RolPermissionService {
                 .id(rolPermission.getId())
                 .rol(mapToResponseRole(rolPermission.getRol()))
                 .viewPermission(mapToResponseViewPermission(rolPermission.getViewPermission()))
+                .update(rolPermission.getUpdate())
+                .delete(rolPermission.getDelete())
+                .lead(rolPermission.getLead())
+                .print(rolPermission.getPrint())
+                .read(rolPermission.getRead())
+                .write(rolPermission.getWrite())
                 .build();
     }
 

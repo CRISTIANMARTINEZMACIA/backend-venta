@@ -60,11 +60,6 @@ public class Business {
     private List<Category> categories;
 
     @OneToMany(mappedBy = "business", fetch = FetchType.LAZY)
-    private List<Product> products;
-
-    @OneToMany(mappedBy = "business", fetch = FetchType.LAZY)
     private List<Client> clients;
 
-    @OneToMany(mappedBy = "business", fetch = FetchType.LAZY)
-    private List<Sale> sales;
 }

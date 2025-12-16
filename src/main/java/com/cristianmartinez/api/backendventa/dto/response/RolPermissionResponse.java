@@ -13,4 +13,10 @@ public class RolPermissionResponse {
     private Long id;
     private RolResponse rol;
     private ViewPermissionResponse viewPermission;
+    private Boolean read;
+    private Boolean write;
+    private Boolean update;
+    private Boolean delete;
+    private Boolean print;
+    private Boolean lead;
 }
