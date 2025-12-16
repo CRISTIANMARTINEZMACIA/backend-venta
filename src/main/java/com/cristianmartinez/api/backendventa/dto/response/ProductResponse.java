@@ -18,5 +18,4 @@ public class ProductResponse {
     private BigDecimal priceSale;
     private Boolean is_inventariable;
     private CategoryResponse category;
-    private BusinessResponse business;
 }

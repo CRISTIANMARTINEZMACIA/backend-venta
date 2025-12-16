@@ -87,7 +87,6 @@ public class StockService {
                 .description(product.getDescription())
                 .priceSale(product.getPriceSale())
                 .category(mapToResponseCategory(product.getCategory()))
-                .business(mapToResponseBusiness(product.getBusiness()))
                 .build();
     }
 
@@ -96,7 +95,6 @@ public class StockService {
                 .id(category.getId())
                 .name(category.getName())
                 .business(mapToResponseBusiness(category.getBusiness()))
-
                 .build();
     }
 

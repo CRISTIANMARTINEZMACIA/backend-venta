@@ -15,7 +15,6 @@ public class ProductRequest {
     private String name;
     private String description;
     private BigDecimal priceSale;
-    private Long business;
     private Long category;
     private Boolean is_inventariable;
 }

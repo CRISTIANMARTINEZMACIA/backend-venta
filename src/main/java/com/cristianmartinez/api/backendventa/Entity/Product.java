@@ -44,10 +44,6 @@ public class Product {
     @JoinColumn(name = "id_categoria")
     private Category category; // puede ser null
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_negocio", nullable = false)
-    private Business business;
-
     @Column(name = "es_inventariable", nullable = false)
     private Boolean is_inventariable;
 

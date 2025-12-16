@@ -100,7 +100,6 @@ public class SaleDetailService {
     private SaleResponse mapToResponseSale(Sale sale) {
         return SaleResponse.builder()
                 .id(sale.getId())
-                .business(mapToResponseBusiness(sale.getBusiness()))
                 .pointSale(mapToResponsePointSale(sale.getPointSale()))
                 .user(mapToResponseUser(sale.getUser()))
                 .client(mapToResponseClient(sale.getClient()))
@@ -118,7 +117,6 @@ public class SaleDetailService {
                 .description(product.getDescription())
                 .priceSale(product.getPriceSale())
                 .category(mapToResponseCategory(product.getCategory()))
-                .business(mapToResponseBusiness(product.getBusiness()))
                 .build();
     }
 
@@ -127,7 +125,6 @@ public class SaleDetailService {
                 .id(category.getId())
                 .name(category.getName())
                 .business(mapToResponseBusiness(category.getBusiness()))
-
                 .build();
     }
 

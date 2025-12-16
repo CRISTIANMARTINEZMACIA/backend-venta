@@ -55,7 +55,6 @@ public class SaleService {
            
         Sale entity = repository.findById(id).get();
 
-        entity.setBusiness(Business.builder().id(saleRequest.getBusiness()).build());
         entity.setClient(Client.builder().id(saleRequest.getClient()).build());
         entity.setDateSale(saleRequest.getDateSale());
         entity.setPointSale(PointSale.builder().id(saleRequest.getPointSale()).build());
@@ -77,7 +76,6 @@ public class SaleService {
         return Sale.builder()
                 .client(Client.builder().id(saleRequest.getClient()).build())
                 .pointSale(PointSale.builder().id(saleRequest.getPointSale()).build())
-                .business(Business.builder().id(saleRequest.getBusiness()).build())
                 .user(User.builder().id(saleRequest.getUser()).build())
                 .total(saleRequest.getTotal())
                 .typePayment(saleRequest.getTypePayment())
@@ -89,7 +87,6 @@ public class SaleService {
     private SaleResponse mapToResponse(Sale sale) {
         return SaleResponse.builder()
                 .id(sale.getId())
-                .business(mapToResponseBusiness(sale.getBusiness()))
                 .pointSale(mapToResponsePointSale(sale.getPointSale()))
                 .user(mapToResponseUser(sale.getUser()))
                 .client(mapToResponseClient(sale.getClient()))

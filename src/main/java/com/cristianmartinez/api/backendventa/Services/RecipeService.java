@@ -96,7 +96,6 @@ public class RecipeService {
                 .description(product.getDescription())
                 .priceSale(product.getPriceSale())
                 .category(mapToResponseCategory(product.getCategory()))
-                .business(mapToResponseBusiness(product.getBusiness()))
                 .build();
     }
 

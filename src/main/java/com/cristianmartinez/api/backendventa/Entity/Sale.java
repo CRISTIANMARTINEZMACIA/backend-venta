@@ -38,10 +38,6 @@ public class Sale {
     @Column(name = "id_venta")
     private Long id;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_negocio", nullable = false)
-    private Business business;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_punto_venta")
     private PointSale pointSale; // puede ser null

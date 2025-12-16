@@ -17,7 +17,6 @@ import com.cristianmartinez.api.utils.EstadoVenta;
 public class SaleRequest {
     private Long client;
     private Long pointSale;
-    private Long business;
     private Long user;
     private BigDecimal total;
     private String typePayment;

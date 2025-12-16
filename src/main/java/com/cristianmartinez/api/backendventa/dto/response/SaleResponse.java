@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Builder
 public class SaleResponse {
     private Long id;
-    private BusinessResponse business;
     private PointSaleResponse pointSale;
     private UserResponse user;
     private ClientResponse client;

@@ -48,7 +48,6 @@ public class ProductService {
 
         entity.setName(productRequest.getName());
         entity.setDescription(productRequest.getDescription());
-        entity.setBusiness(Business.builder().id(productRequest.getBusiness()).build());
         entity.setCategory(Category.builder().id(productRequest.getCategory()).build());
         entity.setPriceSale(productRequest.getPriceSale());
         entity.setIs_inventariable(productRequest.getIs_inventariable());
@@ -67,7 +66,6 @@ public class ProductService {
                 .name(productRequest.getName())
                 .description(productRequest.getDescription())
                 .priceSale(productRequest.getPriceSale())
-                .business(Business.builder().id(productRequest.getBusiness()).build())
                 .category(Category.builder().id(productRequest.getCategory()).build())
                 .is_inventariable(productRequest.getIs_inventariable())
                 .build();
@@ -80,7 +78,6 @@ public class ProductService {
                 .description(product.getDescription())
                 .priceSale(product.getPriceSale())
                 .category(mapToResponseCategory(product.getCategory()))
-                .business(mapToResponseBusiness(product.getBusiness()))
                 .build();
     }
 
