@@ -73,7 +73,7 @@ public class StockService {
     private StockResponse mapToResponse(Stock stock) {
         return StockResponse.builder()
                 .id(stock.getId())
-                .product(mapToResponseProduct(stock.getProduct()))
+                .product(stock.getProduct() != null ? mapToResponseProduct(stock.getProduct()) : null)
                 .amountCurrent(stock.getAmountCurrent())
                 .unitMeasure(stock.getUnitMeasure())
                 .stockMin(stock.getStockMin())

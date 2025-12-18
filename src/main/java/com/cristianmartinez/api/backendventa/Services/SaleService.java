@@ -21,7 +21,8 @@ import com.cristianmartinez.api.backendventa.dto.response.RolResponse;
 import com.cristianmartinez.api.backendventa.dto.response.SaleResponse;
 import com.cristianmartinez.api.backendventa.dto.response.UserResponse;
 
-
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,19 +78,19 @@ public class SaleService {
                 .client(Client.builder().id(saleRequest.getClient()).build())
                 .pointSale(PointSale.builder().id(saleRequest.getPointSale()).build())
                 .user(User.builder().id(saleRequest.getUser()).build())
-                .total(saleRequest.getTotal())
+                .total(BigDecimal.valueOf(0.0))
                 .typePayment(saleRequest.getTypePayment())
                 .status(saleRequest.getStatus())
-                .dateSale(saleRequest.getDateSale())
+                .dateSale(LocalDateTime.now())
                 .build();
     }
 
     private SaleResponse mapToResponse(Sale sale) {
         return SaleResponse.builder()
                 .id(sale.getId())
-                .pointSale(mapToResponsePointSale(sale.getPointSale()))
-                .user(mapToResponseUser(sale.getUser()))
-                .client(mapToResponseClient(sale.getClient()))
+                .pointSale(sale.getPointSale() != null ? mapToResponsePointSale(sale.getPointSale()) : null)
+                .user(sale.getUser() != null ? mapToResponseUser(sale.getUser()) : null)
+                .client(sale.getClient() != null ? mapToResponseClient(sale.getClient()) : null)
                 .dateSale(sale.getDateSale())
                 .total(sale.getTotal())
                 .typePayment(sale.getTypePayment())

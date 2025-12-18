@@ -65,8 +65,7 @@ public class CategoryService {
         return CategoryResponse.builder()
                 .id(category.getId())
                 .name(category.getName())
-                .business(mapToResponseBusiness(category.getBusiness()))
-
+                .business(category.getBusiness() != null ? mapToResponseBusiness(category.getBusiness()) : null)
                 .build();
     }
 

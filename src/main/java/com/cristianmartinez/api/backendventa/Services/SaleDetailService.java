@@ -89,8 +89,8 @@ public class SaleDetailService {
     private SaleDetailResponse mapToResponse(SaleDetail saleDetail) {
         return SaleDetailResponse.builder()
                 .id(saleDetail.getId())
-                .sale(mapToResponseSale(saleDetail.getSale()))
-                .product(mapToResponseProduct(saleDetail.getProduct()))
+                .sale(saleDetail.getSale() != null ? mapToResponseSale(saleDetail.getSale()) : null)
+                .product(saleDetail.getProduct() != null ? mapToResponseProduct(saleDetail.getProduct()) : null)
                 .amount(saleDetail.getAmount())
                 .priceUnitary(saleDetail.getPriceUnitary())
                 .subtotal(saleDetail.getSubtotal())

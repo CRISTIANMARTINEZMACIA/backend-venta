@@ -74,8 +74,8 @@ public class RecipeService {
     private RecipeResponse mapToResponse(Recipe recipe) {
         return RecipeResponse.builder()
                 .id(recipe.getId())
-                .product(mapToResponseProduct(recipe.getProduct()))
-                .ingredient(mapToResponseIngredient(recipe.getIngredient()))
+                .product(recipe.getProduct() != null ? mapToResponseProduct(recipe.getProduct()) : null)
+                .ingredient(recipe.getIngredient() != null ? mapToResponseIngredient(recipe.getIngredient()) : null)
                 .amountNeed(recipe.getAmountNeed())
                 .build();
     }

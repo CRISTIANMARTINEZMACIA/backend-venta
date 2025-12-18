@@ -72,7 +72,7 @@ public class IngredientService {
                 .id(ingredient.getId())
                 .name(ingredient.getName())
                 .unit(ingredient.getUnitMeasure())
-                .category(mapToResponseCategory(ingredient.getCategory()))
+                .category(ingredient.getCategory() != null ? mapToResponseCategory(ingredient.getCategory()) : null)
                 .build();
     }
 

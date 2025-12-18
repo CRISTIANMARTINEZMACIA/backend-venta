@@ -21,60 +21,59 @@ public class ViewsService {
     @Autowired
     private ViewsRepository repository;
 
-    public PaginationResponse<List<ViewResponse>> findAll(Pageable pageable, String name,Long father) {
+    public PaginationResponse<List<ViewResponse>> findAll(Pageable pageable, String name, Long father) {
 
-        Page<Views> views = repository.search(name,father,pageable);
+        Page<Views> views = repository.search(name, father, pageable);
         return PaginationResponse.<List<ViewResponse>>builder()
-         .count(views.getTotalElements())
-         .page(views.getTotalPages())
-         .content(views.stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList()))
-         .build();
+                .count(views.getTotalElements())
+                .page(views.getTotalPages())
+                .content(views.stream()
+                        .map(this::mapToResponse)
+                        .collect(Collectors.toList()))
+                .build();
     }
 
     public List<ViewTreeResponse> findAllByFather() {
-       List<Views> views = repository.findAll();
-       List<Views> fathers = views.stream().filter(v -> v.getFather() == null).collect(Collectors.toList());
-       List<ViewTreeResponse> viewResponse = new ArrayList<ViewTreeResponse>();
-       
-       fathers.forEach(f -> {
-        viewResponse.add(
-                ViewTreeResponse.builder()
-                .id(f.getId())
-                .active(f.getActive())
-                .name(f.getName())
-                .route(f.getRoute())
-                .icon(f.getIcon())
-                .children(findChildren(f,views))
-                .build()
-            );
-       });
+        List<Views> views = repository.findAll();
+        List<Views> fathers = views.stream().filter(v -> v.getFather() == null).collect(Collectors.toList());
+        List<ViewTreeResponse> viewResponse = new ArrayList<ViewTreeResponse>();
 
-       return viewResponse;
+        fathers.forEach(f -> {
+            viewResponse.add(
+                    ViewTreeResponse.builder()
+                            .id(f.getId())
+                            .active(f.getActive())
+                            .name(f.getName())
+                            .route(f.getRoute())
+                            .icon(f.getIcon())
+                            .children(findChildren(f, views))
+                            .build());
+        });
+
+        return viewResponse;
     }
 
-    private List<ViewTreeResponse> findChildren(Views father, List<Views> views){
-        List<Views> children = views.stream().filter(v -> v.getFather() != null && v.getFather().getId() == father.getId()).collect(Collectors.toList());
+    private List<ViewTreeResponse> findChildren(Views father, List<Views> views) {
+        List<Views> children = views.stream()
+                .filter(v -> v.getFather() != null && v.getFather().getId() == father.getId())
+                .collect(Collectors.toList());
         List<ViewTreeResponse> childrenResponse = new ArrayList<ViewTreeResponse>();
         children.forEach(f -> {
             childrenResponse.add(
-                ViewTreeResponse.builder()
-                .id(f.getId())
-                .active(f.getActive())
-                .name(f.getName())
-                .route(f.getRoute())
-                .icon(f.getIcon())
-                .children(findChildren(f,views))
-                .build()
-            );
-       });
-       return childrenResponse;
+                    ViewTreeResponse.builder()
+                            .id(f.getId())
+                            .active(f.getActive())
+                            .name(f.getName())
+                            .route(f.getRoute())
+                            .icon(f.getIcon())
+                            .children(findChildren(f, views))
+                            .build());
+        });
+        return childrenResponse;
     }
 
-
     public ViewResponse findById(Long id) {
-         return mapToResponse(repository.findById(id).get());
+        return mapToResponse(repository.findById(id).get());
     }
 
     public ViewResponse save(ViewRequest ViewRequest) {
@@ -82,18 +81,25 @@ public class ViewsService {
     }
 
     public ViewResponse update(ViewRequest viewRequest, Long id) {
-           
+
         Views entity = repository.findById(id).get();
 
         entity.setName(viewRequest.getName());
         entity.setActive(viewRequest.getActive());
         entity.setRoute(viewRequest.getRoute());
         entity.setIcon(viewRequest.getIcon());
-        entity.setFather(Views.builder().id(viewRequest.getFather()).build());
+
+        if (viewRequest.getFather() != null) {
+            Views father = repository.findById(viewRequest.getFather())
+                    .orElseThrow(() -> new RuntimeException("Vista padre no encontrada"));
+            entity.setFather(father);
+        } else {
+            entity.setFather(null);
+        }
 
         Views saved = repository.save(entity);
         return mapToResponse(saved);
-    
+
     }
 
     public void deleteById(Long id) {
@@ -108,7 +114,7 @@ public class ViewsService {
                 .icon(viewRequest.getIcon())
                 .build();
 
-        if(viewRequest.getFather() != null){
+        if (viewRequest.getFather() != null) {
             view.setFather(Views.builder().id(viewRequest.getFather()).build());
         }
         return view;
@@ -116,8 +122,8 @@ public class ViewsService {
 
     private ViewResponse mapToResponse(Views views) {
         if (views == null) {
-        return null;
-    }
+            return null;
+        }
         return ViewResponse.builder()
                 .id(views.getId())
                 .active(views.getActive())

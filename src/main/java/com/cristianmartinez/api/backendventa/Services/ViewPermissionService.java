@@ -80,8 +80,8 @@ public class ViewPermissionService {
     private ViewPermissionResponse mapToResponse(ViewPermission viewPermission) {
         return ViewPermissionResponse.builder()
                 .id(viewPermission.getId())
-                .view(mapToResponseView(viewPermission.getViews()))
-                .permission(mapToResponsePermission(viewPermission.getPermission()))
+                .view(viewPermission.getViews() != null ? mapToResponseView(viewPermission.getViews()) : null)
+                .permission(viewPermission.getPermission() != null ? mapToResponsePermission(viewPermission.getPermission()) : null)
                 .update(viewPermission.getUpdate())
                 .delete(viewPermission.getDelete())
                 .lead(viewPermission.getLead())

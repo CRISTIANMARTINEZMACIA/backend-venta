@@ -23,6 +23,7 @@ import com.cristianmartinez.api.backendventa.dto.response.RolResponse;
 import com.cristianmartinez.api.backendventa.dto.response.StockResponse;
 import com.cristianmartinez.api.backendventa.dto.response.UserResponse;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,11 +83,11 @@ public class InventoryMovementService {
     private InventoryMovementResponse mapToResponse(InventoryMovement inventoryMoment) {
         return InventoryMovementResponse.builder()
                 .id(inventoryMoment.getId())
-                .stock(mapToResponseStock(inventoryMoment.getStock()))
+                .stock(inventoryMoment.getStock() != null ? mapToResponseStock(inventoryMoment.getStock()) : null)
                 .typeMovement(inventoryMoment.getTypeMovement().toString())
                 .amount(inventoryMoment.getAmount())
-                .dateMovement(inventoryMoment.getDateMovement())
-                .user(mapToResponseUser(inventoryMoment.getUser()))
+                .dateMovement(LocalDateTime.now())
+                .user(inventoryMoment.getUser() != null ? mapToResponseUser(inventoryMoment.getUser()) : null)
                 .build();
     }
 

@@ -97,8 +97,8 @@ public class UserService {
                 .email(user.getEmail())
                 .name(user.getName())
                 .lastName(user.getLastName())
-                .business(mapToResponseBusiness(user.getBusiness()))
-                .rol(mapToResponseRole(user.getRol()))
+                .business(user.getBusiness() != null ? mapToResponseBusiness(user.getBusiness()) : null)
+                .rol(user.getRol() != null ? mapToResponseRole(user.getRol()) : null)
                 .build();
     }
 

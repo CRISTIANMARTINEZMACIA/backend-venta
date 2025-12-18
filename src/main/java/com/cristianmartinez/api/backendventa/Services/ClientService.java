@@ -76,7 +76,7 @@ public class ClientService {
                 .lastName(client.getLastName())
                 .email(client.getEmail())
                 .phone(client.getPhone())
-                .business(mapToResponseBusiness(client.getBusiness()))
+                .business(client.getBusiness() != null ? mapToResponseBusiness(client.getBusiness()) : null)
                 .build();
     }
 

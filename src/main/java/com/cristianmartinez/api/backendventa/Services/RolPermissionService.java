@@ -84,8 +84,8 @@ public class RolPermissionService {
     private RolPermissionResponse mapToResponse(RolPermission rolPermission) {
         return RolPermissionResponse.builder()
                 .id(rolPermission.getId())
-                .rol(mapToResponseRole(rolPermission.getRol()))
-                .viewPermission(mapToResponseViewPermission(rolPermission.getViewPermission()))
+                .rol(rolPermission.getRol() != null ? mapToResponseRole(rolPermission.getRol()) : null)
+                .viewPermission(rolPermission.getViewPermission() != null ? mapToResponseViewPermission(rolPermission.getViewPermission()) : null)
                 .update(rolPermission.getUpdate())
                 .delete(rolPermission.getDelete())
                 .lead(rolPermission.getLead())

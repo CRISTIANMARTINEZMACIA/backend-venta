@@ -77,7 +77,7 @@ public class ProductService {
                 .name(product.getName())
                 .description(product.getDescription())
                 .priceSale(product.getPriceSale())
-                .category(mapToResponseCategory(product.getCategory()))
+                .category(product.getCategory() != null ? mapToResponseCategory(product.getCategory()) : null)
                 .build();
     }
 

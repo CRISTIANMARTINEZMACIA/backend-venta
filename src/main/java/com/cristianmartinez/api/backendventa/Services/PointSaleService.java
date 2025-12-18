@@ -68,7 +68,7 @@ public class PointSaleService {
         return PointSaleResponse.builder()
                 .id(pointSale.getId())
                 .name(pointSale.getName())
-                .business(mapToResponseBusiness(pointSale.getBusiness()))
+                .business(pointSale.getBusiness() != null ? mapToResponseBusiness(pointSale.getBusiness()) : null)
                 .active(pointSale.getActive())
                 .build();
     }
