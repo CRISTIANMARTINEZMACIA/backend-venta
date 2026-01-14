@@ -40,7 +40,7 @@ public class Category {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_negocio")
-    private Business business; // puede ser null según SQL
+    private Business business;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> products;
