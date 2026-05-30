@@ -8,11 +8,16 @@ import org.springframework.stereotype.Service;
 import com.cristianmartinez.api.backendventa.Entity.Business;
 import com.cristianmartinez.api.backendventa.Entity.Client;
 import com.cristianmartinez.api.backendventa.Entity.PointSale;
+import com.cristianmartinez.api.backendventa.Entity.Product;
 import com.cristianmartinez.api.backendventa.Entity.Rol;
 import com.cristianmartinez.api.backendventa.Entity.Sale;
+import com.cristianmartinez.api.backendventa.Entity.SaleDetail;
 import com.cristianmartinez.api.backendventa.Entity.User;
+import com.cristianmartinez.api.backendventa.Repository.SaleDetailRepository;
 import com.cristianmartinez.api.backendventa.Repository.SaleRepository;
+import com.cristianmartinez.api.backendventa.dto.request.SaleDetailRequest;
 import com.cristianmartinez.api.backendventa.dto.request.SaleRequest;
+import com.cristianmartinez.api.backendventa.dto.request.TransactionalSaveRequest;
 import com.cristianmartinez.api.backendventa.dto.response.BusinessResponse;
 import com.cristianmartinez.api.backendventa.dto.response.ClientResponse;
 import com.cristianmartinez.api.backendventa.dto.response.PaginationResponse;
@@ -30,6 +35,8 @@ import java.util.stream.Collectors;
 public class SaleService {
     @Autowired
     private SaleRepository repository;
+    @Autowired
+    private SaleDetailRepository detailRepository;
 
     public PaginationResponse<List<SaleResponse>> findAll(Pageable pageable) {
 
@@ -52,8 +59,17 @@ public class SaleService {
         return mapToResponse(repository.save(mapToEntity(saleRequest)));
     }
 
+    public SaleResponse transactionalSave(TransactionalSaveRequest transactionalSaveRequest) {
+        SaleResponse saleResponse = save(transactionalSaveRequest.getSale());
+        transactionalSaveRequest.getSaleDetails().forEach(detailRequest -> {
+            detailRequest.setSale(saleResponse.getId());
+            detailRepository.save(mapToEntitySaleDetail(detailRequest));
+        });
+        return saleResponse;
+    }
+
     public SaleResponse update(SaleRequest saleRequest, Long id) {
-           
+
         Sale entity = repository.findById(id).get();
 
         entity.setClient(Client.builder().id(saleRequest.getClient()).build());
@@ -66,7 +82,7 @@ public class SaleService {
 
         Sale saved = repository.save(entity);
         return mapToResponse(saved);
-    
+
     }
 
     public void deleteById(Long id) {
@@ -82,6 +98,17 @@ public class SaleService {
                 .typePayment(saleRequest.getTypePayment())
                 .status(saleRequest.getStatus())
                 .dateSale(LocalDateTime.now())
+                .build();
+    }
+
+    private SaleDetail mapToEntitySaleDetail(SaleDetailRequest saleDetailRequest) {
+        return SaleDetail.builder()
+                .sale(Sale.builder().id(saleDetailRequest.getSale()).build())
+                .product(Product.builder().id(saleDetailRequest.getProduct()).build())
+                .amount(saleDetailRequest.getAmount())
+                .priceUnitary(saleDetailRequest.getPriceUnitary())
+                .subtotal(new BigDecimal((saleDetailRequest.getAmount().doubleValue()
+                        * saleDetailRequest.getPriceUnitary().doubleValue())))
                 .build();
     }
 

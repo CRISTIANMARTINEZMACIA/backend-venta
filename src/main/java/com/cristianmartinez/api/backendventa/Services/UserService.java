@@ -3,6 +3,7 @@ package com.cristianmartinez.api.backendventa.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cristianmartinez.api.backendventa.Entity.Business;
@@ -15,7 +16,7 @@ import com.cristianmartinez.api.backendventa.dto.response.PaginationResponse;
 import com.cristianmartinez.api.backendventa.dto.response.RolResponse;
 import com.cristianmartinez.api.backendventa.dto.response.UserResponse;
 
-import java.security.MessageDigest;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,9 @@ import java.util.stream.Collectors;
 public class UserService {
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public PaginationResponse<List<UserResponse>> findAll(Pageable pageable) {
 
@@ -44,7 +48,7 @@ public class UserService {
         return mapToResponse(repository.save(mapToEntity(userRequest)));
     }
 
-    public UserResponse update(UserRequest userRequest, Long id) {
+    public  UserResponse update(UserRequest userRequest, Long id) {
         User entity = repository.findById(id).get();
 
         entity.setName(userRequest.getName());
@@ -68,27 +72,8 @@ public class UserService {
                 .lastName(userRequest.getLastName())
                 .business(Business.builder().id(userRequest.getBusiness()).build())
                 .rol(Rol.builder().id(userRequest.getRol()).build())
-                .passwordHash(sha256(userRequest.getPasswordHash()))
+                .passwordHash(passwordEncoder.encode(userRequest.getPasswordHash()))
                 .build();
-    }
-
-    public static String sha256(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(input.getBytes("UTF-8"));
-            StringBuilder hexString = new StringBuilder();
-
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1)
-                    hexString.append('0');
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (Exception e) {
-            return "";
-        }
-
     }
 
     private UserResponse mapToResponse(User user) {

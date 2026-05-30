@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.cristianmartinez.api.backendventa.Services.SaleService;
 import com.cristianmartinez.api.backendventa.dto.request.SaleRequest;
+import com.cristianmartinez.api.backendventa.dto.request.TransactionalSaveRequest;
 import com.cristianmartinez.api.backendventa.dto.response.DefaultResponse;
 import com.cristianmartinez.api.backendventa.dto.response.PaginationResponse;
 import com.cristianmartinez.api.backendventa.dto.response.SaleResponse;
@@ -54,6 +55,17 @@ public class SaleController {
         try {
              return DefaultResponse.<SaleResponse>builder()
                 .code(200).status(false).message("Venta creada exitosamente").body(service.save(saleRequest)).build();
+        } catch (Exception e) {
+            return DefaultResponse.<SaleResponse>builder()
+                .code(e.hashCode()).status(true).message(e.getMessage()).body(null).build();
+        }
+       
+    }
+     @PostMapping("/create")
+    public DefaultResponse<SaleResponse> transactionalCreate(@RequestBody TransactionalSaveRequest transactionalSaveRequest) {
+        try {
+             return DefaultResponse.<SaleResponse>builder()
+                .code(200).status(false).message("Venta creada exitosamente").body(service.transactionalSave(transactionalSaveRequest)).build();
         } catch (Exception e) {
             return DefaultResponse.<SaleResponse>builder()
                 .code(e.hashCode()).status(true).message(e.getMessage()).body(null).build();
